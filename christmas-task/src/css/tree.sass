@@ -1,1 +1,70 @@
 @import variables
+
+$width: 3em
+
+.tree-container
+  padding: .5em
+  width: 100%
+  height: 100%
+  display: flex
+  justify-content: center
+  &>*
+    @include dark-block
+    padding: .5em
+  &>:nth-child(1), &>:nth-child(3)
+    flex: 0 0 calc( (50% - .5em) / 2 )
+    display: flex
+    flex-direction: column
+    gap: .5em
+  &>:nth-child(2)
+    flex: 0 0 50%
+  .tree-title
+    margin: 0 .5em
+  .tree-settings
+    .tree-item
+      width: calc( $width + 1em )
+      height: calc( $width + 1em )
+    .bg-item
+      width: $width
+      height: $width
+  
+  .tree-favorites
+    .favorites-container
+      width: calc( $width * 4 + 4 * 0.5em )
+      .favorites-card
+        display: flex
+        justify-content: center
+        align-items: center
+        width: $width
+        height: $width
+        .favorite-card-img
+          position: absolute
+          width: calc($width - 1em)
+          object-fit: contain
+          cursor: move
+        .favorite-count
+          position: absolute
+
+@for $i from 1 through 6 
+  .tree-item:nth-child(#{$i}n) 
+    background-image: url('./assets/tree/#{$i}.webp')
+    background-size: contain
+
+@for $i from 1 through 10 
+  .bg-item:nth-child(#{$i}n) 
+    background-image: url('./assets/bg/#{$i}.webp')  
+    border: 1px solid $font-color
+
+.menu
+  width: 100%
+  display: flex
+  flex-wrap: wrap
+  gap: 0.5em
+
+.item
+  background-color: rgba($font-color , .5)
+  background-position: center
+  background-repeat: no-repeat
+  background-size: cover
+  border-radius: 5px
+  
