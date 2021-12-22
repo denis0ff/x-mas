@@ -1,6 +1,6 @@
 @import variables
 
-$width: 3em
+$width: 60px
 
 .tree-container
   width: 100%
@@ -9,45 +9,55 @@ $width: 3em
   justify-content: center
   &>*
     @include dark-block
-    padding: .5em
+    border: 0
+    overflow-y: scroll
   &>:nth-child(1), &>:nth-child(3)
-    flex: 0 0 calc( (50% - .5em) / 2 )
+    padding: .5em
+    min-width: calc(( 100% - 500px - 1em) / 2)
     display: flex
     flex-direction: column
     gap: .5em
   &>:nth-child(2)
-    flex: 0 0 50%
+    min-width: calc( 500px + 1em )
   .tree-title
     margin: 0 .5em
 
   .tree-settings
     .tree-item
-      width: calc( $width + 1em )
-      height: calc( $width + 1em )
+      width: $width
+      height: $width
     .bg-item
       width: $width
       height: $width
   
   .tree-workspace
     .current-tree
-      max-height: 100%
 
   .tree-favorites
     .favorites-container
-      width: calc( $width * 4 + 4 * 0.5em )
       .favorites-card
         display: flex
         justify-content: center
         align-items: center
         width: $width
         height: $width
-        .favorite-card-img
-          position: absolute
-          width: calc($width - 1em)
-          object-fit: contain
-          cursor: move
-        .favorite-count
-          position: absolute
+        .favorites-count
+          align-self: flex-end
+          margin: 0
+          margin-left: auto
+          padding: 0 0.1em
+          width: 1em
+          line-height: 1em
+          text-align: right
+          background-color: rgba($bkg-color , .6)
+          border-radius: 0 0 5px 0
+          z-index: 10
+
+.favorite-card-img
+  position: absolute
+  width: calc($width - 1rem)
+  object-fit: contain
+  cursor: move
 
 @for $i from 1 through 6 
   .tree-item:nth-child(#{$i}n) 
@@ -63,6 +73,7 @@ $width: 3em
   width: 100%
   display: flex
   flex-wrap: wrap
+  justify-content: center
   gap: 0.5em
 
 .item

@@ -1,3 +1,4 @@
+import { TreeHooks } from '../hooks/TreeHooks';
 import { IData } from '../util/Interfaces';
 import { TreeView } from '../view/views/tree/TreeView';
 
@@ -11,5 +12,6 @@ export class Tree {
 
   async initialize(): Promise<void> {
     await this.TreeView.drawPage();
+    new TreeHooks().initialize();
   }
 }

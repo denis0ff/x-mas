@@ -68,9 +68,9 @@ export class TreeView {
     }
   }
 
-  async drawWorkspace() {
+  async drawWorkspace(): Promise<void> {
     const workspace = <HTMLDivElement>document.querySelector('.tree-workspace');
-    const wsImage = (<HTMLTemplateElement>document.getElementById('tree-1')).content.cloneNode(true);
+    const wsImage = (<HTMLTemplateElement>document.getElementById('tree-3')).content.cloneNode(true);
     workspace.style.backgroundImage = 'url(./assets/bg/1.webp';
     workspace.appendChild(wsImage);
   }
