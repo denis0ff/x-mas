@@ -22,31 +22,31 @@ export class TreeView {
   }
 
   async drawSettings(): Promise<void> {
-    const treeContainer = document.querySelector('.tree-menu');
-    const bgContainer = document.querySelector('.bg-menu');
+    const treeContainer = <HTMLDivElement>document.querySelector('.tree-menu');
+    const bgContainer = <HTMLDivElement>document.querySelector('.bg-menu');
     for (let i = 1; i <= this.treeCount; i++) {
       const treeItem = document.createElement('div');
       treeItem.className = 'tree-item item';
       treeItem.setAttribute('data-tree', String(i));
-      treeContainer?.appendChild(treeItem);
+      treeContainer.appendChild(treeItem);
     }
     for (let i = 1; i <= this.bgCount; i++) {
       const bgItem = document.createElement('div');
       bgItem.className = 'bg-item item';
       bgItem.setAttribute('data-bg', String(i));
-      bgContainer?.appendChild(bgItem);
+      bgContainer.appendChild(bgItem);
     }
   }
 
   async drawFavorites(): Promise<void> {
-    const favoritesContainer = document.querySelector('.favorites-container');
+    const favoritesContainer = <HTMLDivElement>document.querySelector('.favorites-container');
     for (let i = 0; i < 20; i++) {
       const favoriteItem = document.createElement('div');
       favoriteItem.className = 'favorites-card item';
       favoriteItem.setAttribute('data-num', String(i));
 
       if (i < this.favorites.length) this.drawFavoritesItems(favoriteItem, i);
-      favoritesContainer?.appendChild(favoriteItem);
+      favoritesContainer.appendChild(favoriteItem);
     }
   }
 

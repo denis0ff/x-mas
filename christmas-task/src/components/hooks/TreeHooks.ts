@@ -25,28 +25,32 @@ export class TreeHooks {
     const target = <HTMLElement>e.target;
     const toyId = (<DataTransfer>e.dataTransfer).getData('id');
     const toy = <HTMLImageElement>document.getElementById(toyId);
-    const nativeSocket = document.querySelector(`[data-num="${toyId.match(/[0-9]+/)}"]`);
+    const nativeSocket = <HTMLDivElement>document.querySelector(`[data-num="${toyId.match(/[0-9]+/)}"]`);
     const toyCount = <HTMLElement>nativeSocket?.querySelector('.favorites-count');
 
     if (target.id === 'map-area') {
       const workspace = <ParentNode>document.querySelector('.tree-workspace');
       const dragX = e.offsetX;
       const dragY = e.offsetY;
+      const shiftX = toy.getBoundingClientRect().width / 2;
+      const shiftY = toy.getBoundingClientRect().height / 2;
+      const wsWidth = (<HTMLDivElement>workspace).getBoundingClientRect().width;
+      const wsHeigth = (<HTMLDivElement>workspace).getBoundingClientRect().height;
 
-      toy.style.left = `${dragX}px`;
-      toy.style.top = `${dragY}px`;
+      toy.style.left = ((dragX - shiftX) / wsWidth) * 100 + '%';
+      toy.style.top = ((dragY - shiftY) / wsHeigth) * 100 + '%';
 
       workspace.append(toy);
-    } else { 
+    } else {
       toy.style.left = 'initial';
       toy.style.top = 'initial';
       nativeSocket?.append(toy);
     }
-    toyCount.textContent = String(nativeSocket?.querySelectorAll('.favorite-card-img').length || '');
+    toyCount.textContent = String(nativeSocket.querySelectorAll('.favorite-card-img').length || '');
   }
 
-  changeTree(e:Event): void {
-    const target = <HTMLImageElement>e.target
+  changeTree(e: Event): void {
+    const target = <HTMLImageElement>e.target;
     if (target.classList.contains('tree-item')) {
       const newTreeNum = target.getAttribute('data-tree');
       const currentTree = <HTMLImageElement>document.querySelector('.current-tree');
@@ -54,8 +58,8 @@ export class TreeHooks {
     }
   }
 
-  changeBg(e:Event): void {
-    const target = <HTMLImageElement>e.target
+  changeBg(e: Event): void {
+    const target = <HTMLImageElement>e.target;
     if (target.classList.contains('bg-item')) {
       const newBgNum = target.getAttribute('data-bg');
       const currentBg = <HTMLImageElement>document.querySelector('.tree-workspace');

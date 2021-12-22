@@ -92,7 +92,7 @@ module.exports = ({ development }) => {
           exclude: /node_modules/,
         },
         {
-          test: /\.(?:ico|gif|png|jpg|jpeg|svg|webp)$/i,
+          test: /\.(?:ico|gif|jpg|jpeg|svg|webp)$/i,
           type: 'asset/resource',
         },
         {
