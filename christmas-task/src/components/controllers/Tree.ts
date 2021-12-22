@@ -1,5 +1,15 @@
+import { IData } from '../util/Interfaces';
+import { TreeView } from '../view/views/tree/TreeView';
+
 export class Tree {
-  async initialize() {
-    console.log('Tree page inn processing...');
+  picks: IData[];
+  TreeView: TreeView;
+  constructor(input: IData[]) {
+    this.picks = input;
+    this.TreeView = new TreeView(input);
+  }
+
+  async initialize(): Promise<void> {
+    await this.TreeView.drawPage();
   }
 }

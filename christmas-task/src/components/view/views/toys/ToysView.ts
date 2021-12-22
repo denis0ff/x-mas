@@ -20,7 +20,7 @@ export class ToysView {
   }
 
   async drawPage(): Promise<void> {
-    const toysPageTemp = <HTMLTemplateElement>document.querySelector('#toysPageTemp');
+    const toysPageTemp = <HTMLTemplateElement>document.getElementById('toysPageTemp');
     const toysPageClone = <HTMLElement>toysPageTemp.content.cloneNode(true);
     const main = <HTMLElement>document.querySelector('.main');
     main.innerHTML = '';
@@ -46,7 +46,7 @@ export class ToysView {
 
   async drawToys(): Promise<void> {
     const fragment = document.createDocumentFragment();
-    const toysTemp = <HTMLTemplateElement>document.querySelector('#toysCardTemp');
+    const toysTemp = <HTMLTemplateElement>document.getElementById('toysCardTemp');
     this.data.forEach((item) => {
       const cardClone = <HTMLDivElement>toysTemp.content.cloneNode(true);
 

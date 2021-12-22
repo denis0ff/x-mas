@@ -15,7 +15,8 @@ class App {
     const data = await App.initialize();
     let controller: Controller;
     if (parsedUrl === 'toys') controller = new Toys(data);
-    else if (parsedUrl === 'tree') controller = new Tree();
+    else if (parsedUrl === 'tree')
+      controller = new Tree(data.savedPicks.length !== 0 ? data.savedPicks : data.inputData.slice(0, 19));
     else if (parsedUrl === 'hello') controller = new Hello();
     else controller = new Error();
     controller.initialize();
@@ -41,6 +42,7 @@ class App {
     const picks = localStorage.getItem('picks');
     const savedFilter: IFilter = filter ? JSON.parse(filter) : { ...basicFilter };
     const savedPicks: IData[] = picks ? JSON.parse(picks) : [];
+    (<HTMLElement>document.querySelector('.toys-counter')).textContent = String(savedPicks.length);
     return { savedFilter, savedPicks };
   }
 }

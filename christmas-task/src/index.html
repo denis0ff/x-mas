@@ -14,10 +14,9 @@
         <a href="./#/toys" class="header-toys button-toys">Игрушки</a>
         <a href="./#/tree" class="header-tree">Ёлка</a>
       </nav>
-      <div class="selected-toys"><span class="toys-counter">0</span></div>
+      <div class="selected-toys"><span class="toys-counter"></span></div>
     </header>
-    <main class="main">
-    </main>
+    <main class="main"></main>
     <footer class="footer">
       <a class="rs-school" href="https://rs.school/js/"></a>
       <span class="app-date">2021</span>
@@ -55,10 +54,51 @@
         <div class="card-ribbon"></div>
       </div>
     </template>
-      
+
     <template id="helloTemp">
       <h1 class="main-header">Помоги бабуле нарядить ёлку</h1>
       <a href="./#/toys" class="main-start button-toys">Начать</a>
+    </template>
+
+    <template id="treePageTemp">
+      <div class="tree-container">
+        <div class="tree-settings">
+          <div class="sound-snow-menu menu">
+            <button class="sound"></button>
+            <button class="snow"></button>
+          </div>
+          <div class="tree-menu menu">Ёлка</div>
+          <div class="bg-menu menu">Фон</div>
+          <div class="garland-menu">
+            Гирлянда
+            <div class="garland-btns">
+              <div class="color-btn" data-color="multicolor"></div>
+              <div class="color-btn" data-color="blue"></div>
+              <div class="color-btn" data-color="red"></div>
+              <div class="color-btn" data-color="yellow"></div>
+              <div class="color-btn" data-color="green"></div>
+            </div>
+            <div class="onoffswitch"></div>
+          </div>
+        </div>
+        <div class="tree-workspace">
+          <div class="snowflakes hide">
+            <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i
+            ><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i
+            ><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i
+            ><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i
+            ><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i
+            ><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i
+            ><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i
+            ><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i
+            ><i></i><i></i><i></i><i></i><i></i>
+          </div>
+        </div>
+        <div class="tree-elements">
+          <div class="favorites-container menu">Игрушки</div>
+          <div class="decorated-container menu"></div>
+        </div>
+      </div>
     </template>
   </body>
 </html>
