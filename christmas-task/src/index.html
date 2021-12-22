@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="shortcut icon" href="./assets/favicon.ico" type="image/x-icon" />
+    <title>Christmas</title>
+  </head>
+  <body class="body">
+    <header class="header">
+      <nav class="header-nav">
+        <a href="./#" class="header-logo"></a>
+        <a href="./#/toys" class="header-toys button-toys">Игрушки</a>
+        <a href="./#/tree" class="header-tree">Ёлка</a>
+      </nav>
+      <div class="selected-toys"><span class="toys-counter">0</span></div>
+    </header>
+    <main class="main">
+    </main>
+    <footer class="footer">
+      <a class="rs-school" href="https://rs.school/js/"></a>
+      <span class="app-date">2021</span>
+      <a class="my-git" href="https://github.com/denis0ff"></a>
+    </footer>
+
+    <template id="toysPageTemp">
+      <section class="filters">
+        <div class="filter filter-by_value">
+          <h3 class="filter-title">Фильтры по значению</h3>
+        </div>
+        <div class="filter filter-by_range">
+          <h3 class="filter-title">Фильтры по диапазону</h3>
+        </div>
+        <div class="filter filter-by_sort">
+          <h3 class="filter-title">Сортировка</h3>
+        </div>
+      </section>
+      <div class="nothing-found hide">Извините, игрушек с заданными фильтрами нет..</div>
+      <section class="cards"></section>
+    </template>
+
+    <template id="toysCardTemp">
+      <div class="card">
+        <h2 class="card-title"></h2>
+        <img src="" alt="toy" class="card-image" />
+        <div class="card-description">
+          <p class="count">Количество:</p>
+          <p class="year">Год покупки:</p>
+          <p class="shape">Форма:</p>
+          <p class="color">Цвет:</p>
+          <p class="size">Размер:</p>
+          <p class="favorite">Любимая:</p>
+        </div>
+        <div class="card-ribbon"></div>
+      </div>
+    </template>
+      
+    <template id="helloTemp">
+      <h1 class="main-header">Помоги бабуле нарядить ёлку</h1>
+      <a href="./#/toys" class="main-start button-toys">Начать</a>
+    </template>
+  </body>
+</html>

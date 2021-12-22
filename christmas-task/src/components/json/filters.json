@@ -1,0 +1,36 @@
+{
+  "shape": {
+    "шар": false,
+    "фигурка": false,
+    "колокольчик": false,
+    "шишка": false,
+    "снежинка": false
+  },
+  "year": {
+    "from": 1940,
+    "to": 2020
+  },
+  "count": {
+    "from": 1,
+    "to": 12
+  },
+  "color": {
+    "красный": false,
+    "синий": false,
+    "зелёный": false,
+    "желтый": false,
+    "белый": false
+  },
+  "size": {
+    "большой": false,
+    "средний": false,
+    "малый": false
+  },
+  "favorite": false,
+  "sort": {
+    "sortNameMax": true,
+    "sortNameMin": false,
+    "sortYearMax": false,
+    "sortYearMin": false
+  }
+}

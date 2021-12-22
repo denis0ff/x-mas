@@ -1,0 +1,169 @@
+@import variables
+
+.filters
+  margin: 1em 0.5em
+  display: flex
+  justify-content: center
+  width: 100%
+  max-width: 1600px
+.filter
+  @include dark-block
+  flex: 0 1 33%
+  display: flex
+  flex-direction: column
+  padding: 0.5em 1em
+  font-size: 1.2em
+  cursor: default
+  & > *
+    margin: 0.2em
+    text-align: left
+
+.filter-title
+  font-size: 1.2em
+
+.filter-by_value
+  &> div
+    display: flex
+    align-items: center
+  .shape
+    &> button
+      margin-left: 5px
+      width: 1.6em
+      height: 1.6em
+      background: center / contain no-repeat url(./assets/svg/ball.svg)
+      transition: .3s
+      &.active
+        filter: invert(9%) sepia(63%) saturate(461%) hue-rotate(322deg) brightness(83%) contrast(88%)
+        &:hover
+          filter: invert(19%) sepia(63%) saturate(461%) hue-rotate(322deg) brightness(83%) contrast(88%)
+      &:hover
+        filter: invert(9%) sepia(63%) saturate(100%) hue-rotate(322deg) brightness(83%) contrast(88%)
+      &:nth-child(1)
+        margin-left: 20px
+    &> button[data-filter="колокольчик"]
+      background: center / contain no-repeat url(./assets/svg/bell.svg)
+    &> button[data-filter="фигурка"]
+      background: center / contain no-repeat url(./assets/svg/toy.svg)
+    &> button[data-filter="шишка"]
+      background: center / contain no-repeat url(./assets/svg/cone.svg)
+    &> button[data-filter="снежинка"]
+      background: center / contain no-repeat url(./assets/svg/snowflake.svg)
+  .color
+    &> button
+      @include filter-quad-block
+      @include blue-color-and-line
+      &::after
+        @include filter-quad-active
+      &.active::after
+        opacity: 1
+      &:hover
+        @include button-hover
+      &:nth-child(1)
+        margin-left: 20px
+    &> button[data-filter="белый"]
+      @include white-color-and-line
+      &.active::after
+        border-color: invert(#fff)
+    &> button[data-filter="зелёный"]
+      @include green-color-and-line
+    &> button[data-filter="желтый"]
+      @include yellow-color-and-line
+    &> button[data-filter="красный"]
+      @include red-color-and-line
+  .size
+    &> button
+      margin-left: 5px
+      width: 1.8em
+      height: 1.8em
+      background: center / contain no-repeat url(./assets/svg/ball.svg)
+      transition: .3s
+      &.active
+        filter: invert(9%) sepia(63%) saturate(461%) hue-rotate(322deg) brightness(83%) contrast(88%)
+      &:nth-child(1)
+        margin-left: 20px
+      &.active
+        filter: invert(9%) sepia(63%) saturate(461%) hue-rotate(322deg) brightness(83%) contrast(88%)
+        &:hover
+          filter: invert(19%) sepia(63%) saturate(461%) hue-rotate(322deg) brightness(83%) contrast(88%)
+      &:hover
+        filter: invert(9%) sepia(63%) saturate(100%) hue-rotate(322deg) brightness(83%) contrast(88%)
+    &> button[data-filter="средний"]
+      width: 1.6em
+      height: 1.6em
+    &> button[data-filter="малый"]
+      width: 1.4em
+      height: 1.4em
+  .favorite-input
+    display: none
+  .favorite-input-label
+    @include filter-quad-block
+    &:hover
+        @include button-hover
+    &::after
+      @include filter-quad-active
+      top: 0
+  .favorite-input:checked + .favorite-input-label::after
+    opacity: 1
+
+.filter-by_range
+  .filter-wrapper
+    display: flex
+    align-items: center
+    &> div
+      width: 100%
+      height: .4em
+      margin: 0 .5em
+      cursor: pointer
+      .noUi-touch-area
+        cursor: pointer
+    .slider-output
+      @include ring-button
+      margin: 10px 0
+      display: inline-flex
+      justify-content: center
+      align-items: center
+      min-width: 2.8em
+      cursor: default
+
+.filter-by_sort
+  display: flex
+  flex-direction: column
+  gap: .5em
+  .sort-select
+    @include input-text
+    background-image: url("./assets/svg/arrow-down.svg")
+    &:hover
+      @include button-hover
+    option
+      color: inherit
+      background-color: $bkg-color
+  .filter-search
+    @include input-text
+    background-image: url(./assets/svg/search.svg)
+    background-size: .8em
+    background-position: 98% center
+    &:hover
+      @include button-hover
+    &::placeholder
+      color: rgba($font-color, .7)
+    &::-webkit-search-cancel-button
+      -webkit-appearance: none /* без сброса оформление не применится */
+      width: 1em
+      height: 1em
+      background: center / cover no-repeat  url(./assets/svg/search-clear.svg)
+      cursor: pointer
+  .button-reset
+    @include ring-button
+    justify-self: flex-end
+    &:hover
+      @include button-hover
+
+.noUi-horizontal .noUi-handle
+  width: 1em
+  height: 1em
+  right: -0.5em
+  top: -0.35em
+  border-radius: 50%
+
+.noUi-handle:before, .noUi-handle:after 
+  display: none

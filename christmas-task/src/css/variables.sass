@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Infant:wght@600&display=swap')
+$bkg-color: #121C1E
+$hover-color: #278D9F
+$bkg-transparent: rgba(#278D9F, .3)
+$font-color: #e3e3e3
+
+@mixin font
+  font:
+    family: Cormorant Infant
+    size: 14px
+    weight: 600
+  color: $font-color
+
+@mixin dark-block
+  text-align: center
+  color: $font-color
+  background: $bkg-transparent
+  backdrop-filter: blur(6px)
+  border: 3px solid $bkg-color
+
+@mixin button-hover
+  outline: 1px solid
+  outline-color: rgba($font-color, .5)
+  outline-offset: 0px
+  transition: all 1250ms cubic-bezier(0.19, 1, 0.22, 1)
+
+@mixin filter-quad-block
+  width: 1.3em
+  height: 1.3em
+  backdrop-filter: blur(6px)
+  border: 1px solid $hover-color
+  border-radius: 5px
+  margin-left: 0.3em
+  cursor: pointer
+
+@mixin filter-quad-active
+  content: ''
+  position: absolute
+  top: .1em
+  left: .4em
+  width: .3em
+  height: .8em
+  border: solid #fff
+  border-width: 0 4px 4px 0
+  transform: rotate(45deg)
+  opacity: 0
+  transition: .3s
+
+@mixin white-color-and-line
+  border-color: #fff
+  background-color: #fff
+
+@mixin yellow-color-and-line
+  border-color: #FDD700
+  background-color: #FDD700
+
+@mixin red-color-and-line
+  border-color: #FD0000
+  background-color: #FD0000
+
+@mixin blue-color-and-line
+  border-color: #2199EB
+  background-color: #2199EB
+
+@mixin green-color-and-line
+  border-color: #08AA05
+  background-color: #08AA05
+
+@mixin ring-button
+  @include dark-block
+  margin: 0
+  border-radius: 20px
+  border: 1px solid $hover-color
+  height: 1.4em
+  cursor: pointer
+
+@mixin input-text
+  @include ring-button
+  text-align: left
+  appearance: none
+  outline: 0
+  height: 1.6em
+  font: inherit
+  width: 100%
+  padding: 0.1em 1.2em 0.1em 10px
+  background-size: 1.2em
+  background-position: 100% center
+  background-repeat: no-repeat
