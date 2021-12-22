@@ -24,13 +24,13 @@ export class TreeView {
   async drawSettings(): Promise<void> {
     const treeContainer = document.querySelector('.tree-menu');
     const bgContainer = document.querySelector('.bg-menu');
-    for (let i = 0; i < this.treeCount; i++) {
+    for (let i = 1; i <= this.treeCount; i++) {
       const treeItem = document.createElement('div');
       treeItem.className = 'tree-item item';
       treeItem.setAttribute('data-tree', String(i));
       treeContainer?.appendChild(treeItem);
     }
-    for (let i = 0; i < this.bgCount; i++) {
+    for (let i = 1; i <= this.bgCount; i++) {
       const bgItem = document.createElement('div');
       bgItem.className = 'bg-item item';
       bgItem.setAttribute('data-bg', String(i));
@@ -70,7 +70,7 @@ export class TreeView {
 
   async drawWorkspace(): Promise<void> {
     const workspace = <HTMLDivElement>document.querySelector('.tree-workspace');
-    const wsImage = (<HTMLTemplateElement>document.getElementById('tree-3')).content.cloneNode(true);
+    const wsImage = (<HTMLTemplateElement>document.getElementById('treeTemp')).content.cloneNode(true);
     workspace.style.backgroundImage = 'url(./assets/bg/1.webp';
     workspace.appendChild(wsImage);
   }
