@@ -18,6 +18,7 @@ export class TreeView {
     main.appendChild(treePageClone);
     await this.drawSettings();
     await this.drawFavorites();
+    await this.drawWorkspace();
   }
 
   async drawSettings(): Promise<void> {
@@ -65,5 +66,12 @@ export class TreeView {
       favoriteImg.src = `./assets/toys/${this.favorites[i].num}.webp`;
       parent.appendChild(favoriteImg);
     }
+  }
+
+  async drawWorkspace() {
+    const workspace = <HTMLDivElement>document.querySelector('.tree-workspace');
+    const wsImage = (<HTMLTemplateElement>document.getElementById('tree-1')).content.cloneNode(true);
+    workspace.style.backgroundImage = 'url(./assets/bg/1.webp';
+    workspace.appendChild(wsImage);
   }
 }

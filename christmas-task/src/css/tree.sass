@@ -3,7 +3,6 @@
 $width: 3em
 
 .tree-container
-  padding: .5em
   width: 100%
   height: 100%
   display: flex
@@ -20,6 +19,7 @@ $width: 3em
     flex: 0 0 50%
   .tree-title
     margin: 0 .5em
+
   .tree-settings
     .tree-item
       width: calc( $width + 1em )
@@ -28,6 +28,10 @@ $width: 3em
       width: $width
       height: $width
   
+  .tree-workspace
+    .current-tree
+      max-height: 100%
+
   .tree-favorites
     .favorites-container
       width: calc( $width * 4 + 4 * 0.5em )
