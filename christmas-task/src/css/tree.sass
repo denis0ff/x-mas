@@ -1,4 +1,5 @@
 @import variables
+@import garland
 
 $width: 60px
 
@@ -29,6 +30,8 @@ $width: 60px
     .bg-item
       width: $width
       height: $width
+    .garland-btns
+      margin: .5em 0
   
   .tree-workspace
     background-position: center
@@ -77,6 +80,7 @@ $width: 60px
   display: flex
   flex-wrap: wrap
   justify-content: center
+  align-items: center
   gap: 0.5em
 
 .item
@@ -85,4 +89,55 @@ $width: 60px
   background-repeat: no-repeat
   background-size: cover
   border-radius: 5px
-  
+
+.color-btn
+  border-radius: 50%
+  width: 1em
+  height: 1em
+  background: linear-gradient(70deg, #FD0000, #FDD700, #08AA05, #2199EB)
+  box-shadow: rgb(0 0 0 / 20%) 0 -1px 7px 1px, inset rgba(#E3E3E3, 0.1) 0 -1px 9px, #E3E3E3 0 2px 14px
+  cursor: pointer
+  &[data-color="blue"]
+    background: #2199EB
+    box-shadow: rgb(0 0 0 / 20%) 0 -1px 7px 1px, inset rgba(#2199EB, 0.3) 0 -1px 9px, #2199EB 0 2px 14px
+  &[data-color="green"]
+    background: #08AA05
+    box-shadow: rgb(0 0 0 / 20%) 0 -1px 7px 1px, inset rgba(#08AA05, 0.3) 0 -1px 9px, #08AA05 0 2px 14px
+  &[data-color="yellow"]
+    background: #FDD700
+    box-shadow: rgb(0 0 0 / 20%) 0 -1px 7px 1px, inset rgba(#FDD700, 0.3) 0 -1px 9px, #FDD700 0 2px 14px
+  &[data-color="red"]
+    background: #FD0000
+    box-shadow: rgb(0 0 0 / 20%) 0 -1px 7px 1px, inset rgba(#FD0000, 0.3) 0 -1px 9px, #FD0000 0 2px 14px
+
+.onoffswitch
+  .input-switch
+    display: none
+  i
+    display: inline-block
+    float: right
+    padding: 2px
+    width: 2em
+    height: 1em
+    border-radius: 13px
+    vertical-align: middle
+    transition: .25s
+    position: relative
+    background: $font-color
+    box-sizing: initial
+    &:after
+      content: " "
+      display: block
+      width: 1em
+      height: 1em
+      border-radius: 50%
+      background: rgba($bkg-color , .9)
+      position: absolute
+      left: 2px
+      transition: .25s
+  .input-switch:checked + i
+    background: $hover-color
+  .input-switch:checked + i:after
+    left: calc( 1em + 2px )
+  &:hover
+    cursor: pointer

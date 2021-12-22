@@ -1,4 +1,9 @@
 export class TreeHooks {
+  garlandColor: string;
+  constructor() {
+    this.garlandColor = 'multi';
+  }
+
   initialize(): void {
     this.listen();
   }
@@ -9,8 +14,9 @@ export class TreeHooks {
     document.querySelectorAll('.favorites-card').forEach((card) => {
       card.addEventListener('mousedown', (e) => this.drag(e));
     });
-    document.querySelector('.tree-menu')?.addEventListener('click', (e) => this.changeTree(e));
-    document.querySelector('.bg-menu')?.addEventListener('click', (e) => this.changeBg(e));
+    (<HTMLDivElement>document.querySelector('.tree-menu')).addEventListener('click', (e) => this.changeTree(e));
+    (<HTMLDivElement>document.querySelector('.bg-menu')).addEventListener('click', (e) => this.changeBg(e));
+    (<HTMLDivElement>document.querySelector('.garland-btns')).addEventListener('click', (e) => this.changeGarland(e));
   }
 
   drag(e: Event): void {
@@ -64,6 +70,33 @@ export class TreeHooks {
       const newBgNum = target.getAttribute('data-bg');
       const currentBg = <HTMLImageElement>document.querySelector('.tree-workspace');
       currentBg.style.backgroundImage = `url(./assets/bg/${newBgNum}.webp)`;
+    }
+  }
+
+  changeGarland(e: Event): void {
+    const wsGarland = <HTMLDivElement>document.querySelector('.workspace-garland');
+    const target = <HTMLElement>e.target;
+    const input = <HTMLInputElement>(<HTMLElement>e.currentTarget).querySelector('.input-switch');
+
+    if (target.classList.contains('color-btn')) {
+      this.garlandColor = <string>target.getAttribute('data-color');
+      this.drawGarland(wsGarland);
+      input.checked = true;
+    } else if (target.classList.contains('input-switch'))
+      input.checked ? this.drawGarland(wsGarland) : (wsGarland.innerHTML = '');
+  }
+
+  drawGarland(wsGarland: HTMLDivElement): void {
+    wsGarland.innerHTML = '';
+    for (let i = 0; i < 8; i++) {
+      const lightrope = document.createElement('ul');
+      lightrope.className = 'lightrope';
+      for (let j = 0; j < 4 + i; j++) {
+        const light = document.createElement('li');
+        light.className = this.garlandColor;
+        lightrope.appendChild(light);
+      }
+      wsGarland.appendChild(lightrope);
     }
   }
 }
