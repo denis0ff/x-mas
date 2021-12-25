@@ -1,7 +1,15 @@
 export class TreeHooks {
   garlandColor: string;
+
+  audio: HTMLAudioElement;
+
+  snowKiller: NodeJS.Timeout | null;
+
   constructor() {
     this.garlandColor = 'multi';
+    this.audio = new Audio('./../assets/audio/audio.mp3');
+    this.audio.loop = true;
+    this.snowKiller = null;
   }
 
   initialize(): void {
@@ -17,6 +25,7 @@ export class TreeHooks {
     (<HTMLDivElement>document.querySelector('.tree-menu')).addEventListener('click', (e) => this.changeTree(e));
     (<HTMLDivElement>document.querySelector('.bg-menu')).addEventListener('click', (e) => this.changeBg(e));
     (<HTMLDivElement>document.querySelector('.garland-btns')).addEventListener('click', (e) => this.changeGarland(e));
+    (<HTMLDivElement>document.querySelector('.sound-snow-menu')).addEventListener('click', (e) => this.soundOrSnow(e));
   }
 
   drag(e: Event): void {
@@ -33,6 +42,7 @@ export class TreeHooks {
     const toy = <HTMLImageElement>document.getElementById(toyId);
     const nativeSocket = <HTMLDivElement>document.querySelector(`[data-num="${toyId.match(/[0-9]+/)}"]`);
     const toyCount = <HTMLElement>nativeSocket?.querySelector('.favorites-count');
+    console.log(target);
 
     if (target.id === 'map-area') {
       const workspace = <ParentNode>document.querySelector('.tree-workspace');
@@ -100,5 +110,41 @@ export class TreeHooks {
       }
       wsGarland.appendChild(lightrope);
     }
+  }
+
+  soundOrSnow(e: Event): void {
+    const target = <HTMLButtonElement>e.target;
+    if (target.classList.contains('sound')) this.playMusic();
+    if (target.classList.contains('snow')) this.showSnow();
+  }
+
+  playMusic(): void {
+    this.audio.paused ? this.audio.play() : this.audio.pause();
+  }
+
+  showSnow(): void {
+    const snowContainer = <HTMLDivElement>document.querySelector('.workspace-snow');
+    if (snowContainer.classList.contains('hide')) {
+      this.snowKiller = setInterval(() => this.drawSnowFlakes(snowContainer), 50);
+    } else clearInterval(<NodeJS.Timeout>this.snowKiller);
+    snowContainer.classList.toggle('hide');
+  }
+
+  drawSnowFlakes(container: HTMLDivElement): void {
+    const snowflake = document.createElement('i');
+    const size = Math.random() * 2 + 1 + '%';
+
+    snowflake.className = 'snowflake';
+    snowflake.style.left = Math.random() * container.offsetWidth + 'px';
+    snowflake.style.animationDuration = Math.random() * 3 + 2 + 's';
+    snowflake.style.opacity = String(Math.random());
+    snowflake.style.width = size;
+    snowflake.style.height = size;
+
+    container.appendChild(snowflake);
+
+    setTimeout(() => {
+      snowflake.remove();
+    }, 5000);
   }
 }

@@ -21,8 +21,15 @@ $width: 60px
     min-width: calc( 500px + 1em )
   .tree-title
     margin: 0 .5em
-
   .tree-settings
+    .sound
+      width: 2rem
+      height: 2rem
+      background: center / contain no-repeat url(./assets/svg/audio.svg)
+    .snow
+      width: 2rem
+      height: 2rem
+      background: center / contain no-repeat url(./assets/svg/snow.svg)
     .tree-item
       width: $width
       height: $width
@@ -36,13 +43,29 @@ $width: 60px
     background-position: center
     background-repeat: no-repeat
     background-size: cover
+    .workspace-snow
+      position: absolute
+      width: 97%
+      height: 100%
+      z-index: -1
+      padding: 0
+      .snowflake 
+        position: absolute
+        top: -20px
+        background: center / cover no-repeat url(./assets/svg/snowflake.svg)
+        animation: fall linear forwards
+      @keyframes fall
+        to 
+          transform: translateY(82vh)
+          
     .workspace-garland
       position: absolute
       top: 50px
-      display: flex
-      justify-content: center
+      max-height: calc( 84vh - 50px )
       height: 100%
       width: 100%
+      display: flex
+      justify-content: center
       pointer-events: none
       z-index: 10
     @for $i from 1 through 11 
