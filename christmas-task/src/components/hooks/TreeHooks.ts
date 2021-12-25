@@ -88,12 +88,14 @@ export class TreeHooks {
 
   drawGarland(wsGarland: HTMLDivElement): void {
     wsGarland.innerHTML = '';
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < 10; i++) {
       const lightrope = document.createElement('ul');
       lightrope.className = 'lightrope';
-      for (let j = 0; j < 4 + i; j++) {
+      for (let j = 0; j < i + 3; j++) {
         const light = document.createElement('li');
-        light.className = this.garlandColor;
+        light.className = 'light ' + this.garlandColor;
+        light.style.transform = `rotate(${60 + j * 5}deg) translate(${60 + i * 10}px) rotate(-${60 + j * 5}deg)`;
+
         lightrope.appendChild(light);
       }
       wsGarland.appendChild(lightrope);

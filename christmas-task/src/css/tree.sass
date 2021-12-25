@@ -1,6 +1,5 @@
 @import variables
 @import garland
-
 $width: 60px
 
 .tree-container
@@ -37,7 +36,19 @@ $width: 60px
     background-position: center
     background-repeat: no-repeat
     background-size: cover
-    .current-tree
+    .workspace-garland
+      position: absolute
+      top: 50px
+      display: flex
+      justify-content: center
+      height: 100%
+      width: 100%
+      pointer-events: none
+      z-index: 10
+    @for $i from 1 through 11 
+      .lightrope:nth-child(#{$i}n) 
+        height: calc(#{$i} * 15%)
+
 
   .tree-favorites
     .favorites-container
