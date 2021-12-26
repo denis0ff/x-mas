@@ -65,17 +65,15 @@ $width: 60px
           
     .workspace-garland
       position: absolute
-      top: 50px
-      max-height: calc( 84vh - 50px )
+      top: 10px
+      max-height: 690px
       height: 100%
       width: 100%
       display: flex
-      justify-content: center
+      align-items: center
+      flex-direction: column
       pointer-events: none
       z-index: 10
-    @for $i from 1 through 11 
-      .lightrope:nth-child(#{$i}n) 
-        height: calc(#{$i} * 15%)
 
 
   .tree-favorites
@@ -103,6 +101,7 @@ $width: 60px
   width: calc($width - 1rem)
   object-fit: contain
   cursor: move
+  z-index: 100
 
 @for $i from 1 through 6 
   .tree-item:nth-child(#{$i}n) 
