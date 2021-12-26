@@ -1,11 +1,19 @@
-export class TreeHooks {
-  garlandColor: string;
+import { ITreeSettings } from '../util/Interfaces';
 
+export class TreeHooks {
   audio: HTMLAudioElement;
 
   snowKiller: NodeJS.Timeout | null;
 
-  constructor() {
+  settings: ITreeSettings;
+
+  basicSettings: ITreeSettings;
+
+  garlandColor: string;
+
+  constructor(basicSettings: ITreeSettings, currentSettings: ITreeSettings) {
+    this.settings = currentSettings;
+    this.basicSettings = basicSettings;
     this.garlandColor = 'multi';
     this.audio = new Audio('./../assets/audio/audio.mp3');
     this.audio.loop = true;
@@ -13,10 +21,14 @@ export class TreeHooks {
   }
 
   initialize(): void {
+    if (this.settings.music) window.addEventListener('click', () => this.playMusic(true), { once: true });
+    this.showSnow(true);
     this.listen();
   }
 
   listen(): void {
+    window.addEventListener('beforeunload', () => this.saveSettings());
+    window.addEventListener('hashchange', () => this.saveSettings());
     document.ondragover = (e) => e.preventDefault();
     document.ondrop = (e) => this.drop(e);
     document.querySelectorAll('.favorites-card').forEach((card) => {
@@ -25,7 +37,9 @@ export class TreeHooks {
     (<HTMLDivElement>document.querySelector('.tree-menu')).addEventListener('click', (e) => this.changeTree(e));
     (<HTMLDivElement>document.querySelector('.bg-menu')).addEventListener('click', (e) => this.changeBg(e));
     (<HTMLDivElement>document.querySelector('.garland-btns')).addEventListener('click', (e) => this.changeGarland(e));
-    (<HTMLDivElement>document.querySelector('.sound-snow-menu')).addEventListener('click', (e) => this.soundOrSnow(e));
+    (<HTMLDivElement>document.querySelector('.sound-snow-menu')).addEventListener('click', (e) =>
+      this.soundSnowResetPick(e)
+    );
   }
 
   drag(e: Event): void {
@@ -42,8 +56,6 @@ export class TreeHooks {
     const toy = <HTMLImageElement>document.getElementById(toyId);
     const nativeSocket = <HTMLDivElement>document.querySelector(`[data-num="${toyId.match(/[0-9]+/)}"]`);
     const toyCount = <HTMLElement>nativeSocket?.querySelector('.favorites-count');
-    console.log(target);
-
     if (target.id === 'map-area') {
       const workspace = <ParentNode>document.querySelector('.tree-workspace');
       const dragX = e.offsetX;
@@ -68,18 +80,18 @@ export class TreeHooks {
   changeTree(e: Event): void {
     const target = <HTMLImageElement>e.target;
     if (target.classList.contains('tree-item')) {
-      const newTreeNum = target.getAttribute('data-tree');
+      this.settings.treeNum = <string>target.getAttribute('data-tree');
       const currentTree = <HTMLImageElement>document.querySelector('.current-tree');
-      currentTree.src = `./assets/tree/${newTreeNum}.webp`;
+      currentTree.src = `./assets/tree/${this.settings.treeNum}.webp`;
     }
   }
 
   changeBg(e: Event): void {
     const target = <HTMLImageElement>e.target;
     if (target.classList.contains('bg-item')) {
-      const newBgNum = target.getAttribute('data-bg');
+      this.settings.bgNum = <string>target.getAttribute('data-bg');
       const currentBg = <HTMLImageElement>document.querySelector('.tree-workspace');
-      currentBg.style.backgroundImage = `url(./assets/bg/${newBgNum}.webp)`;
+      currentBg.style.backgroundImage = `url(./assets/bg/${this.settings.bgNum}.webp)`;
     }
   }
 
@@ -112,22 +124,29 @@ export class TreeHooks {
     }
   }
 
-  soundOrSnow(e: Event): void {
+  soundSnowResetPick(e: Event): void {
     const target = <HTMLButtonElement>e.target;
     if (target.classList.contains('sound')) this.playMusic();
     if (target.classList.contains('snow')) this.showSnow();
+    if (target.classList.contains('button-reset')) this.resetSettings();
   }
 
-  playMusic(): void {
-    this.audio.paused ? this.audio.play() : this.audio.pause();
+  playMusic(isPlay?: boolean): void {
+    if (isPlay) this.settings.music = true;
+    else this.settings.music = !this.settings.music;
+    if (this.settings.music) this.audio.play();
+    else this.audio.pause();
   }
 
-  showSnow(): void {
+  showSnow(isStart?: boolean): void {
     const snowContainer = <HTMLDivElement>document.querySelector('.workspace-snow');
-    if (snowContainer.classList.contains('hide')) {
+    if (!isStart) {
+      snowContainer.classList.toggle('fall');
+      this.settings.snow = !this.settings.snow;
+    }
+    if (snowContainer.classList.contains('fall'))
       this.snowKiller = setInterval(() => this.drawSnowFlakes(snowContainer), 50);
-    } else clearInterval(<NodeJS.Timeout>this.snowKiller);
-    snowContainer.classList.toggle('hide');
+    else clearInterval(<NodeJS.Timeout>this.snowKiller);
   }
 
   drawSnowFlakes(container: HTMLDivElement): void {
@@ -146,5 +165,22 @@ export class TreeHooks {
     setTimeout(() => {
       snowflake.remove();
     }, 5000);
+  }
+
+  saveSettings(): void {
+    localStorage.setItem('tree-settings', JSON.stringify(this.settings));
+  }
+
+  resetSettings(): void {
+    console.log(this.settings);
+
+    this.settings = JSON.parse(JSON.stringify(this.basicSettings));
+    console.log(this.settings);
+    this.audio.pause();
+    clearInterval(<NodeJS.Timeout>this.snowKiller);
+    (<HTMLImageElement>document.querySelector('.current-tree')).src = `./assets/tree/${this.settings.treeNum}.webp`;
+    (<HTMLImageElement>(
+      document.querySelector('.tree-workspace')
+    )).style.backgroundImage = `url(./assets/bg/${this.settings.bgNum}.webp)`;
   }
 }

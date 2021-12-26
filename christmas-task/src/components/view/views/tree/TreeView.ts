@@ -1,4 +1,4 @@
-import { IData } from '../../../util/Interfaces';
+import { IData, ITreeSettings } from '../../../util/Interfaces';
 
 export class TreeView {
   favorites: IData[];
@@ -10,7 +10,7 @@ export class TreeView {
     this.treeCount = 4;
   }
 
-  async drawPage(): Promise<void> {
+  async drawPage(settings: ITreeSettings): Promise<void> {
     const treePageTemp = <HTMLTemplateElement>document.getElementById('treePageTemp');
     const treePageClone = <HTMLElement>treePageTemp.content.cloneNode(true);
     const main = <HTMLElement>document.querySelector('.main');
@@ -18,7 +18,7 @@ export class TreeView {
     main.appendChild(treePageClone);
     await this.drawSettings();
     await this.drawFavorites();
-    await this.drawWorkspace();
+    await this.drawWorkspace(settings);
   }
 
   async drawSettings(): Promise<void> {
@@ -68,9 +68,12 @@ export class TreeView {
     }
   }
 
-  async drawWorkspace(): Promise<void> {
+  async drawWorkspace(settings: ITreeSettings): Promise<void> {
     const workspace = <HTMLDivElement>document.querySelector('.tree-workspace');
-    // const wsTree = (<HTMLImageElement>workspace.querySelector('.current-tree'));
-    workspace.style.backgroundImage = 'url(./assets/bg/1.webp)';
+    const wsTree = <HTMLImageElement>workspace.querySelector('.current-tree');
+    const wsSnow = <HTMLDivElement>workspace.querySelector('.workspace-snow');
+    settings.snow ? wsSnow.classList.add('fall') : wsSnow.classList.remove('fall');
+    workspace.style.backgroundImage = `url(./assets/bg/${settings.bgNum}.webp)`;
+    wsTree.src = `./assets/tree/${settings.treeNum}.webp`;
   }
 }

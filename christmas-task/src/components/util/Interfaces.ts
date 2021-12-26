@@ -59,6 +59,13 @@ interface ParamsAreSortFunctions {
   [x: string]: SortFunction;
 }
 
+interface ITreeSettings {
+  treeNum: string;
+  bgNum: string;
+  snow: boolean;
+  music: boolean;
+}
+
 export {
   IData,
   IFilter,
@@ -70,4 +77,5 @@ export {
   IDataIterators,
   IInput,
   ParamsAreSortFunctions,
+  ITreeSettings,
 };
