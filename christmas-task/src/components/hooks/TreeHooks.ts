@@ -72,7 +72,7 @@ export class TreeHooks {
     } else {
       toy.style.left = 'initial';
       toy.style.top = 'initial';
-      nativeSocket?.append(toy);
+      nativeSocket.append(toy);
     }
     toyCount.textContent = String(nativeSocket.querySelectorAll('.favorite-card-img').length || '');
   }
@@ -176,8 +176,6 @@ export class TreeHooks {
   }
 
   resetSettings(): void {
-    console.log(this.settings);
-
     this.settings = JSON.parse(JSON.stringify(this.basicSettings));
     console.log(this.settings);
     this.audio.pause();
