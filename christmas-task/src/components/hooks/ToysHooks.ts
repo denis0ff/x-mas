@@ -17,7 +17,7 @@ export class ToysHooks {
 
   cardArray: NodeListOf<HTMLElement>;
 
-  readonly resetFilter: IFilter;
+  resetFilter: IFilter;
 
   search: string;
 
@@ -204,16 +204,17 @@ export class ToysHooks {
   }
 
   saveSettings(): void {
-    if (this.needSave) {
-      localStorage.setItem('filter', JSON.stringify(this.savedFilter));
-      localStorage.setItem('picks', JSON.stringify(this.picks));
-    }
+    localStorage.setItem('filter', JSON.stringify(this.savedFilter));
+    localStorage.setItem('picks', JSON.stringify(this.picks));
   }
 
   resetSettings(): void {
     localStorage.clear();
-    // localStorage.removeItem('filter');
-    this.needSave = false;
+    this.resetFilter = JSON.parse(JSON.stringify(this.basicFilter));
+    this.resetFilters();
+    this.cardArray.forEach((card) => card.classList.remove('active'));
+    this.picks.length = 0;
+    (<HTMLElement>document.querySelector('.toys-counter')).textContent = String(this.picks.length);
   }
 
   resetFilters(): void {
@@ -230,20 +231,14 @@ export class ToysHooks {
       });
 
     (<HTMLInputElement>document.querySelector('.favorite-input')).checked = this.savedFilter.favorite;
-     
+
     const yearSlider = document.getElementById('yearSlider');
-    (<API>(<TargetElement>yearSlider).noUiSlider).set([
-      this.savedFilter.year.from,
-      this.savedFilter.year.to,
-    ]);
+    (<API>(<TargetElement>yearSlider).noUiSlider).set([this.savedFilter.year.from, this.savedFilter.year.to]);
     (<HTMLElement>(<HTMLElement>yearSlider).previousSibling).textContent = String(this.savedFilter.year.from);
     (<HTMLElement>(<HTMLElement>yearSlider).nextSibling).textContent = String(this.savedFilter.year.to);
 
     const countSlider = document.getElementById('countSlider');
-    (<API>(<TargetElement>countSlider).noUiSlider).set([
-      this.savedFilter.count.from,
-      this.savedFilter.count.to,
-    ]);
+    (<API>(<TargetElement>countSlider).noUiSlider).set([this.savedFilter.count.from, this.savedFilter.count.to]);
     (<HTMLElement>(<HTMLElement>countSlider).previousSibling).textContent = String(this.savedFilter.count.from);
     (<HTMLElement>(<HTMLElement>countSlider).nextSibling).textContent = String(this.savedFilter.count.to);
 
