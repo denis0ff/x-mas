@@ -80,6 +80,9 @@ export class TreeHooks {
   changeTree(e: Event): void {
     const target = <HTMLImageElement>e.target;
     if (target.classList.contains('tree-item')) {
+      (<HTMLDivElement>e.currentTarget)
+        .querySelectorAll('.tree-item')
+        .forEach((item) => (item === target ? item.classList.add('active') : item.classList.remove('active')));
       this.settings.treeNum = <string>target.getAttribute('data-tree');
       const currentTree = <HTMLImageElement>document.querySelector('.current-tree');
       currentTree.src = `./assets/tree/${this.settings.treeNum}.webp`;
@@ -89,6 +92,9 @@ export class TreeHooks {
   changeBg(e: Event): void {
     const target = <HTMLImageElement>e.target;
     if (target.classList.contains('bg-item')) {
+      (<HTMLDivElement>e.currentTarget)
+        .querySelectorAll('.bg-item')
+        .forEach((item) => (item === target ? item.classList.add('active') : item.classList.remove('active')));
       this.settings.bgNum = <string>target.getAttribute('data-bg');
       const currentBg = <HTMLImageElement>document.querySelector('.tree-workspace');
       currentBg.style.backgroundImage = `url(./assets/bg/${this.settings.bgNum}.webp)`;
@@ -136,21 +142,23 @@ export class TreeHooks {
   }
 
   playMusic(isPlay?: boolean): void {
-    if (isPlay) this.settings.music = true;
-    else this.settings.music = !this.settings.music;
-    if (this.settings.music) this.audio.play();
-    else this.audio.pause();
+    const soundButton = <HTMLButtonElement>document.querySelector('.sound');
+    isPlay ? (this.settings.music = true) : (this.settings.music = !this.settings.music);
+    this.settings.music ? this.audio.play() : this.audio.pause();
+    this.settings.music ? soundButton.classList.add('active') : soundButton.classList.remove('active');
   }
 
   showSnow(isStart?: boolean): void {
     const snowContainer = <HTMLDivElement>document.querySelector('.workspace-snow');
+    const snowButton = <HTMLButtonElement>document.querySelector('.snow');
     if (!isStart) {
       snowContainer.classList.toggle('fall');
       this.settings.snow = !this.settings.snow;
     }
-    if (snowContainer.classList.contains('fall'))
-      this.snowKiller = setInterval(() => this.drawSnowFlakes(snowContainer), 50);
-    else clearInterval(<NodeJS.Timeout>this.snowKiller);
+    snowContainer.classList.contains('fall')
+      ? (this.snowKiller = setInterval(() => this.drawSnowFlakes(snowContainer), 50))
+      : clearInterval(<NodeJS.Timeout>this.snowKiller);
+    this.settings.snow ? snowButton.classList.add('active') : snowButton.classList.remove('active');
   }
 
   drawSnowFlakes(container: HTMLDivElement): void {

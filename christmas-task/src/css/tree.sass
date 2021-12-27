@@ -26,23 +26,59 @@ $width: 60px
       width: 2rem
       height: 2rem
       background: center / contain no-repeat url(./assets/svg/audio.svg)
+      &.active
+        filter: invert(9%) sepia(63%) saturate(461%) hue-rotate(322deg) brightness(83%) contrast(88%)
+      &:hover
+        filter: invert(19%) sepia(63%) saturate(461%) hue-rotate(322deg) brightness(83%) contrast(88%)
     .snow
       width: 2rem
       height: 2rem
       background: center / contain no-repeat url(./assets/svg/snow.svg)
+      &.active
+        filter: invert(9%) sepia(63%) saturate(461%) hue-rotate(322deg) brightness(83%) contrast(88%)
+      &:hover
+        filter: invert(19%) sepia(63%) saturate(461%) hue-rotate(322deg) brightness(83%) contrast(88%)
     .button-reset
       @include ring-button
       padding: 0.2em 0.5em
       &:hover
         @include button-hover
-    .tree-item
+    .tree-item, .bg-item
       width: $width
       height: $width
-    .bg-item
-      width: $width
-      height: $width
+      cursor: pointer
+      &:hover
+        @include button-hover
+      &.active
+        outline: 2px solid
+        outline-color: rgba(#FDD700, .7)
+        background-color: rgba(#FDD700, .1)
     .garland-btns
       margin: .5em 0
+      .color-btn
+        margin-right: .5em
+        border-radius: 50%
+        width: 1.5em
+        height: 1.5em
+        cursor: pointer
+        box-shadow: rgb(0 0 0 / 20%) 0 -1px 7px 1px, inset rgba(#000, 0.1) 0 -1px 9px, #000 0 2px 14px
+        &[data-color="multicolor"]
+          background: linear-gradient(70deg, #FD0000, #FDD700, #08AA05, #2199EB)
+          box-shadow: rgb(0 0 0 / 20%) 0 -1px 7px 1px, inset rgba(#E3E3E3, 0.1) 0 -1px 9px, #E3E3E3 0 2px 14px
+        &[data-color="blue"]
+          background: #2199EB
+          box-shadow: rgb(0 0 0 / 20%) 0 -1px 7px 1px, inset rgba(#2199EB, 0.3) 0 -1px 9px, #2199EB 0 2px 14px
+        &[data-color="green"]
+          background: #08AA05
+          box-shadow: rgb(0 0 0 / 20%) 0 -1px 7px 1px, inset rgba(#08AA05, 0.3) 0 -1px 9px, #08AA05 0 2px 14px
+        &[data-color="yellow"]
+          background: #FDD700
+          box-shadow: rgb(0 0 0 / 20%) 0 -1px 7px 1px, inset rgba(#FDD700, 0.3) 0 -1px 9px, #FDD700 0 2px 14px
+        &[data-color="red"]
+          background: #FD0000
+          box-shadow: rgb(0 0 0 / 20%) 0 -1px 7px 1px, inset rgba(#FD0000, 0.3) 0 -1px 9px, #FD0000 0 2px 14px
+        &:hover
+          box-shadow: none
   
   .tree-workspace
     background-position: center
@@ -100,7 +136,7 @@ $width: 60px
   position: absolute
   width: calc($width - 1rem)
   object-fit: contain
-  cursor: move
+  cursor: grabbing
   z-index: 100
 
 @for $i from 1 through 6 
@@ -128,46 +164,29 @@ $width: 60px
   background-size: cover
   border-radius: 5px
 
-.color-btn
-  border-radius: 50%
-  width: 1em
-  height: 1em
-  background: linear-gradient(70deg, #FD0000, #FDD700, #08AA05, #2199EB)
-  box-shadow: rgb(0 0 0 / 20%) 0 -1px 7px 1px, inset rgba(#E3E3E3, 0.1) 0 -1px 9px, #E3E3E3 0 2px 14px
-  cursor: pointer
-  &[data-color="blue"]
-    background: #2199EB
-    box-shadow: rgb(0 0 0 / 20%) 0 -1px 7px 1px, inset rgba(#2199EB, 0.3) 0 -1px 9px, #2199EB 0 2px 14px
-  &[data-color="green"]
-    background: #08AA05
-    box-shadow: rgb(0 0 0 / 20%) 0 -1px 7px 1px, inset rgba(#08AA05, 0.3) 0 -1px 9px, #08AA05 0 2px 14px
-  &[data-color="yellow"]
-    background: #FDD700
-    box-shadow: rgb(0 0 0 / 20%) 0 -1px 7px 1px, inset rgba(#FDD700, 0.3) 0 -1px 9px, #FDD700 0 2px 14px
-  &[data-color="red"]
-    background: #FD0000
-    box-shadow: rgb(0 0 0 / 20%) 0 -1px 7px 1px, inset rgba(#FD0000, 0.3) 0 -1px 9px, #FD0000 0 2px 14px
-
 .onoffswitch
   .input-switch
     display: none
   i
     display: inline-block
     float: right
-    padding: 2px
-    width: 2em
-    height: 1em
+    padding: 2.5px
+    width: 2.8em
+    height: 1.4em
     border-radius: 13px
     vertical-align: middle
     transition: .25s
     position: relative
     background: $font-color
     box-sizing: initial
+    &:hover
+      &::after
+        background: rgba($bkg-color , .7)
     &:after
       content: " "
       display: block
-      width: 1em
-      height: 1em
+      width: 1.4em
+      height: 1.4em
       border-radius: 50%
       background: rgba($bkg-color , .9)
       position: absolute
@@ -176,6 +195,6 @@ $width: 60px
   .input-switch:checked + i
     background: $hover-color
   .input-switch:checked + i:after
-    left: calc( 1em + 2px )
+    left: calc( 1.4em + 2px )
   &:hover
     cursor: pointer

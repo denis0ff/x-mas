@@ -16,23 +16,25 @@ export class TreeView {
     const main = <HTMLElement>document.querySelector('.main');
     main.innerHTML = '';
     main.appendChild(treePageClone);
-    await this.drawSettings();
+    await this.drawSettings(settings);
     await this.drawFavorites();
     await this.drawWorkspace(settings);
   }
 
-  async drawSettings(): Promise<void> {
+  async drawSettings(settings: ITreeSettings): Promise<void> {
     const treeContainer = <HTMLDivElement>document.querySelector('.tree-menu');
     const bgContainer = <HTMLDivElement>document.querySelector('.bg-menu');
     for (let i = 1; i <= this.treeCount; i++) {
       const treeItem = document.createElement('div');
       treeItem.className = 'tree-item item';
+      if (i === +settings.treeNum) treeItem.classList.add('active');
       treeItem.setAttribute('data-tree', String(i));
       treeContainer.appendChild(treeItem);
     }
     for (let i = 1; i <= this.bgCount; i++) {
       const bgItem = document.createElement('div');
       bgItem.className = 'bg-item item';
+      if (i === +settings.bgNum) bgItem.classList.add('active');
       bgItem.setAttribute('data-bg', String(i));
       bgContainer.appendChild(bgItem);
     }
