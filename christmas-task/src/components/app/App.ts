@@ -6,20 +6,22 @@ import { Utils } from '../util/Utils';
 import { IData, IFilter } from '../util/Interfaces';
 
 interface Controller {
-  initialize(): void;
+  initialize(nodeArray: NodeListOf<HTMLElement>): Promise<void>;
 }
 
 class App {
   async start(): Promise<void> {
     const parsedUrl = Utils.parseRequestURL();
     const data = await App.initialize();
+    const audio = new Audio('./assets/audio/audio.mp3');
+    const pageLinksArray = <NodeListOf<HTMLElement>>document.querySelectorAll('.header-nav > a');
     let controller: Controller;
     if (parsedUrl === 'toys') controller = new Toys(data);
     else if (parsedUrl === 'tree')
-      controller = new Tree(data.savedPicks.length !== 0 ? data.savedPicks : data.inputData.slice(0, 19));
+      controller = new Tree(data.savedPicks.length !== 0 ? data.savedPicks : data.inputData.slice(0, 19), audio);
     else if (parsedUrl === 'hello') controller = new Hello();
     else controller = new Error();
-    controller.initialize();
+    controller.initialize(pageLinksArray);
   }
 
   static async initialize(): Promise<{

@@ -11,11 +11,11 @@ export class TreeHooks {
 
   garlandColor: string;
 
-  constructor(basicSettings: ITreeSettings, currentSettings: ITreeSettings) {
+  constructor(basicSettings: ITreeSettings, currentSettings: ITreeSettings, audio: HTMLAudioElement) {
     this.settings = currentSettings;
     this.basicSettings = basicSettings;
     this.garlandColor = 'multi';
-    this.audio = new Audio('./../assets/audio/audio.mp3');
+    this.audio = audio;
     this.audio.loop = true;
     this.snowKiller = null;
   }
@@ -188,6 +188,21 @@ export class TreeHooks {
     console.log(this.settings);
     this.audio.pause();
     clearInterval(<NodeJS.Timeout>this.snowKiller);
+
+    (<NodeListOf<HTMLElement>>document.querySelectorAll('.bg-item')).forEach((item) =>
+      item.getAttribute('data-bg') === this.settings.bgNum
+        ? item.classList.add('active')
+        : item.classList.remove('active')
+    );
+    (<NodeListOf<HTMLElement>>document.querySelectorAll('.tree-item')).forEach((item) =>
+      item.getAttribute('data-tree') === this.settings.treeNum
+        ? item.classList.add('active')
+        : item.classList.remove('active')
+    );
+
+    (<HTMLElement>document.querySelector('.sound')).classList.remove('active');
+    (<HTMLElement>document.querySelector('.snow')).classList.remove('active');
+
     (<HTMLImageElement>document.querySelector('.current-tree')).src = `./assets/tree/${this.settings.treeNum}.webp`;
     (<HTMLImageElement>(
       document.querySelector('.tree-workspace')

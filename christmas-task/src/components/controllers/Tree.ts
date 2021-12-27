@@ -9,7 +9,9 @@ export class Tree {
 
   basicSettings: ITreeSettings;
 
-  constructor(input: IData[]) {
+  audio: HTMLAudioElement;
+
+  constructor(input: IData[], audio: HTMLAudioElement) {
     this.picks = input;
     this.TreeView = new TreeView(input);
     this.basicSettings = {
@@ -18,12 +20,16 @@ export class Tree {
       snow: false,
       music: false,
     };
+    this.audio = audio;
   }
 
-  async initialize(): Promise<void> {
+  async initialize(pageLinksArray: NodeListOf<HTMLElement>): Promise<void> {
+    pageLinksArray.forEach((page) =>
+      page.classList.contains('header-tree') ? page.classList.add('active') : page.classList.remove('active')
+    );
     const savedSettings = localStorage.getItem('tree-settings');
     const currentSettings: ITreeSettings = savedSettings ? JSON.parse(savedSettings) : this.basicSettings;
     await this.TreeView.drawPage(currentSettings);
-    new TreeHooks(this.basicSettings, currentSettings).initialize();
+    new TreeHooks(this.basicSettings, currentSettings, this.audio).initialize();
   }
 }

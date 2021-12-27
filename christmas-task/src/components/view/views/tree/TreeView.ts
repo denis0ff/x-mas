@@ -16,6 +16,7 @@ export class TreeView {
     const main = <HTMLElement>document.querySelector('.main');
     main.innerHTML = '';
     main.appendChild(treePageClone);
+    (<HTMLElement>document.querySelector('.toys-counter')).textContent = String(this.favorites.length);
     await this.drawSettings(settings);
     await this.drawFavorites();
     await this.drawWorkspace(settings);

@@ -12,7 +12,10 @@ export class Toys {
     this.toysView = new ToysView(this.data);
   }
 
-  async initialize(): Promise<void> {
+  async initialize(pageLinksArray: NodeListOf<HTMLElement>): Promise<void> {
+    pageLinksArray.forEach((page) =>
+      page.classList.contains('header-toys') ? page.classList.add('active') : page.classList.remove('active')
+    );
     await this.toysView.drawPage();
     new ToysHooks(this.data).initialize();
   }

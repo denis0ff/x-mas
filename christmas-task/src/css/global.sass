@@ -40,11 +40,27 @@ html
     display: flex
     align-items: center
     gap: 1em
+    .nav-link
+      position: relative
+      &.active::after
+        content: ""
+        position: absolute
+        bottom: -0.5em
+        left: 5%
+        right: 5%
+        height: 3px
+        background-color: $hover-color
     .header-logo
       display: block
       width: 2em
       height: 3em
       background: center / contain no-repeat url(./assets/svg/tree.svg)
+      &.active
+        filter: invert(9%) sepia(63%) saturate(461%) hue-rotate(322deg) brightness(83%) contrast(88%)
+        &:hover
+          filter: invert(19%) sepia(63%) saturate(461%) hue-rotate(322deg) brightness(83%) contrast(88%)
+        &::after
+          height: 0
   .selected-toys
     width: 2.5em
     height: 3.2em
@@ -121,3 +137,9 @@ html
     width: 6rem
     height: 2.5rem
     background: center / contain no-repeat url(./assets/svg/rss.svg)
+
+.error404
+  @include dark-block
+  margin: auto
+  padding: 1em
+  font-size: 2em
